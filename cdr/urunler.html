@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ürünler - Yılmaz Çadır</title>
+  <style>
+    :root {
+      --primary: #dc2626;
+      --primary-dark: #991b1b;
+      --primary-light: #fef2f2;
+      --secondary: #1e40af;
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --text-muted: #9ca3af;
+      --bg: #ffffff;
+      --bg-alt: #f9fafb;
+      --border: #e5e7eb;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      --radius: 0.5rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .container {
+        padding: 0 1.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .container {
+        padding: 0 2rem;
+      }
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 50;
+      transition: all 0.3s ease;
+    }
+
+    .header.scrolled {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: var(--shadow-md);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .logo-icon {
+      width: 3rem;
+      height: 3rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .nav {
+      display: none;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    @media (min-width: 1024px) {
+      .nav {
+        display: flex;
+      }
+    }
+
+    .nav-link {
+      padding: .5rem 1rem;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      border-radius: var(--radius);
+      transition: all .2s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .cta-btn {
+      background: var(--primary);
+      color: #fff;
+      padding: .75rem 1.5rem;
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .875rem;
+      transition: all .2s ease;
+      margin-left: 1rem;
+    }
+
+    .cta-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: .5rem;
+    }
+
+    @media (min-width: 1024px) {
+      .mobile-menu-btn {
+        display: none;
+      }
+    }
+
+    .mobile-menu-btn span {
+      width: 1.5rem;
+      height: .125rem;
+      background: var(--text);
+      transition: all .3s ease;
+      border-radius: .125rem;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-lg);
+      border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    }
+
+    .mobile-menu.active {
+      display: block;
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      gap: .5rem;
+    }
+
+    .mobile-nav .nav-link {
+      padding: .75rem 1rem;
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 8rem 0 4rem;
+      background: linear-gradient(135deg, var(--bg-alt) 0%, #f3f4f6 100%);
+      text-align: center;
+      position: relative;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="0.5" fill="rgba(220,38,38,0.1)"/><circle cx="80" cy="20" r="0.5" fill="rgba(220,38,38,0.1)"/><circle cx="50" cy="50" r="0.5" fill="rgba(220,38,38,0.1)"/><circle cx="20" cy="80" r="0.5" fill="rgba(220,38,38,0.1)"/><circle cx="80" cy="80" r="0.5" fill="rgba(220,38,38,0.1)"/></svg>');
+      opacity: .3;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .breadcrumb a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--primary);
+    }
+
+    .breadcrumb-separator {
+      color: var(--text-muted);
+    }
+
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    @media (min-width: 640px) {
+      .page-title {
+        font-size: 3.5rem;
+      }
+    }
+
+    .page-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-light);
+      max-width: 42rem;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* Filter Section */
+    .filter-section {
+      padding: 3rem 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 5rem;
+      z-index: 40;
+    }
+
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: .75rem 1.5rem;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .875rem;
+      transition: all .2s ease;
+      cursor: pointer;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    /* Products */
+    .products {
+      padding: 5rem 0;
+      background: var(--bg);
+    }
+
+    .products-layout {
+      display: grid;
+      gap: 3rem;
+    }
+
+    @media (min-width: 1024px) {
+      .products-layout {
+        grid-template-columns: 280px 1fr;
+        gap: 4rem;
+      }
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      height: fit-content;
+      position: sticky;
+      top: 12rem;
+      border: 1px solid var(--border);
+    }
+
+    .sidebar-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      padding-bottom: .75rem;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-menu li {
+      margin-bottom: .5rem;
+    }
+
+    .sidebar-menu a {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .75rem 1rem;
+      color: var(--text);
+      text-decoration: none;
+      border-radius: var(--radius);
+      transition: all .2s ease;
+      font-weight: 500;
+    }
+
+    .sidebar-menu a:hover,
+    .sidebar-menu a.active {
+      background: var(--primary);
+      color: #fff;
+      transform: translateX(4px);
+    }
+
+    @media (max-width: 1023px) {
+      .products-layout {
+        grid-template-columns: 1fr;
+        /* Tek sütun yap */
+      }
+
+      .sidebar {
+        position: relative;
+        /* sticky yerine normal */
+        top: 0;
+        margin-bottom: 2rem;
+        /* altındaki kartlardan ayır */
+      }
+    }
+
+
+    /* Product Categories */
+    .product-category {
+      margin-bottom: 5rem;
+    }
+
+    .category-header {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .category-badge {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      padding: .5rem 1rem;
+      border-radius: 9999px;
+      font-size: .875rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .category-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .category-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    .category-description {
+      font-size: 1.125rem;
+      color: var(--text-light);
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 640px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Product Cards */
+    .product-card {
+      background: var(--bg);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: all .3s ease;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--primary);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 14rem;
+      background: var(--bg-alt);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .3s ease;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.05);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--primary);
+      color: #fff;
+      padding: .25rem .75rem;
+      border-radius: 9999px;
+      font-size: .75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .product-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-icon {
+      width: 3rem;
+      height: 3rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .product-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .product-description {
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .product-features {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-features li {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .4rem 0;
+      font-size: .8rem;
+      color: var(--text);
+    }
+
+    .product-features li::before {
+      content: "✓";
+      background: #10b981;
+      color: #fff;
+      width: 1.1rem;
+      height: 1.1rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      gap: 1rem;
+      margin-top: auto;
+    }
+
+    @media (max-width: 640px) {
+      .product-footer {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+
+    .btn {
+      padding: .6rem 1.2rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      border: none;
+      cursor: pointer;
+      font-size: .8rem;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* CTA */
+    .cta {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: 2.25rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .cta h2 {
+        font-size: 3rem;
+      }
+    }
+
+    .cta p {
+      font-size: 1.25rem;
+      margin-bottom: 2.5rem;
+      opacity: .9;
+      max-width: 42rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--primary);
+    }
+
+    .btn-white:hover {
+      background: var(--bg-alt);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Footer */
+    .footer {
+      background: #111827;
+      color: #fff;
+      padding: 5rem 0 2.5rem;
+    }
+
+    .footer-content {
+      display: grid;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (min-width: 640px) {
+      .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .footer-content {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .footer-section h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #fff;
+    }
+
+    .footer-section p {
+      color: #9ca3af;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .footer-section a {
+      color: #9ca3af;
+      text-decoration: none;
+      display: block;
+      padding: .25rem 0;
+      transition: color .2s ease;
+    }
+
+    .footer-section a:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #374151;
+      padding-top: 2rem;
+      text-align: center;
+      color: #9ca3af;
+    }
+
+    /* Animations */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: all .8s ease;
+    }
+
+    .animate-on-scroll.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-on-scroll {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="index.html" class="logo">
+          <img src="./img/logo.png" alt="Yılmaz Çadır Logo" style="width: 80px; height: 80px; border-radius: 8px;">
+          <span>Yılmaz Çadır</span>
+        </a>
+        <nav class="nav">
+          <a href="index.html" class="nav-link">Anasayfa</a>
+          <a href="urunler.html" class="nav-link active">Ürünler</a>
+          <a href="galeri.html" class="nav-link">Galeri</a>
+          <a href="referanslar.html" class="nav-link">Referanslar</a>
+          <a href="iletisim.html" class="nav-link">İletişim</a>
+          <a href="iletisim.html" class="cta-btn">Hemen Ara</a>
+        </nav>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-nav">
+          <a href="index.html" class="nav-link">Anasayfa</a>
+          <a href="urunler.html" class="nav-link active">Ürünler</a>
+          <a href="galeri.html" class="nav-link">Galeri</a>
+          <a href="referanslar.html" class="nav-link">Referanslar</a>
+          <a href="iletisim.html" class="nav-link">İletişim</a>
+          <a href="tel:03422380352" class="cta-btn">Hemen Ara</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="index.html">Anasayfa</a>
+        <span class="breadcrumb-separator">•</span>
+        <span>Ürünler</span>
+      </nav>
+      <h1 class="page-title">Ürün ve Hizmetlerimiz</h1>
+      <p class="page-subtitle">30+ yıllık tecrübemizle her ihtiyacınıza uygun kaliteli çözümler sunuyoruz.</p>
+    </div>
+  </section>
+
+  <!-- Filter -->
+  <section class="filter-section">
+    <div class="container">
+      <div class="filter-container">
+        <button class="filter-btn active" onclick="filterProducts('all', this)">Tüm Ürünler</button>
+        <button class="filter-btn" onclick="filterProducts('tent', this)">Tente Sistemleri</button>
+        <button class="filter-btn" onclick="filterProducts('celik', this)">Çelik Yapı Çadırı</button>
+        <button class="filter-btn" onclick="filterProducts('isletme', this)">İşletme Çadırı</button>
+        <button class="filter-btn" onclick="filterProducts('kamyon', this)">Araç Koruması</button>
+        <button class="filter-btn" onclick="filterProducts('semsiye', this)">Şemsiyeler</button>
+        <button class="filter-btn" onclick="filterProducts('mimari', this)">Mimari Gölgelendirme</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="products">
+    <div class="container">
+      <div class="products-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <h3 class="sidebar-title">Ürün Kategorileri</h3>
+          <ul class="sidebar-menu">
+            <li><a href="#tent-sistemleri" class="active">🏕️ Tente Sistemleri</a></li>
+            <li><a href="#mimari-golgelendirme">🏛️ Mimari Gölgelendirme</a></li>
+            <li><a href="#celik-konstruksiyon">🏗️ Çelik Yapı Çadırları</a></li>
+            <li><a href="#isletme-cadiri">⛺ İşletme Çadırları</a></li>
+            <li><a href="#tir-kamyon-cadiri">🚚 Araç Çadırları</a></li>
+            <li><a href="#semsiyeler">☂️ Şemsiyeler</a></li>
+          </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+          <!-- Tent Sistemleri -->
+          <div class="product-category animate-on-scroll" id="tent-sistemleri" data-category="tent">
+            <div class="category-header">
+              <div class="category-badge">Tente Sistemleri</div>
+              <h2 class="category-title">Modern Tente Çözümleri</h2>
+              <p class="category-description">Klasik tentelerden otomatik pergola sistemlerine kadar geniş ürün yelpazesi
+              </p>
+            </div>
+            <div class="products-grid">
+              <!-- Klasik Tent -->
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/klasiktente1.jpg" alt="Klasik Tent" />
+                  <div class="product-badge">Popüler</div>
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🏕️</div>
+                  <h3 class="product-title">Klasik Tente</h3>
+                  <p class="product-description">Geleneksel ve güvenilir tente sistemi. Tüm mevsim şartlarına dayanıklı,
+                    uzun ömürlü kullanım sunar.</p>
+                  <ul class="product-features">
+                    <li>Su geçirmez malzeme</li>
+                    <li>UV koruma özelliği</li>
+                    <li>Kolay kurulum sistemi</li>
+                    <li>5 yıl garanti</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Çift Taraflı Tent -->
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/ciftacilimtent1.jpg" alt="Çift Taraflı Tent" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">⛺</div>
+                  <h3 class="product-title">Çift Taraflı Tente</h3>
+                  <p class="product-description">İki yöne açılabilen esnek tente sistemi. Geniş alanlar için ideal çözüm
+                    sunar.</p>
+                  <ul class="product-features">
+                    <li>Çift yönlü açılım</li>
+                    <li>Geniş kapsama alanı</li>
+                    <li>Sağlam mekanizma</li>
+                    <li>Profesyonel montaj</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Spotlu Kaselli Tent -->
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/kastelli2.jpg" alt="Spotlu Kaselli Tent" />
+                  <div class="product-badge">Yeni</div>
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">💡</div>
+                  <h3 class="product-title">Spotlu Kastelli Tente</h3>
+                  <p class="product-description">LED aydınlatma sistemli modern tente. Gece kullanımı için ideal çözüm
+                    sunar.</p>
+                  <ul class="product-features">
+                    <li>Entegre LED spot sistemi</li>
+                    <li>Enerji tasarruflu</li>
+                    <li>Şık ve modern tasarım</li>
+                    <li>Uzaktan kumanda</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Otomatik Pergola Tent -->
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/pergola2.jpg" alt="Otomatik Pergola" />
+                  <div class="product-badge">Premium</div>
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🔄</div>
+                  <h3 class="product-title">Otomatik Pergola Tente</h3>
+                  <p class="product-description">Motorlu sistem ile otomatik açılıp kapanan en modern pergola tente
+                    sistemi.</p>
+                  <ul class="product-features">
+                    <li>Motorlu otomatik açılım</li>
+                    <li>Rüzgar ve yağmur sensörü</li>
+                    <li>Akıllı kontrol sistemi</li>
+                    <li>Premium kalite garanti</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Karpuz Tent -->
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/karpuztent6.jpg" alt="Karpuz Tent" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🍉</div>
+                  <h3 class="product-title">Karpuz Tente</h3>
+                  <p class="product-description">Yarı dairesel formuyla geniş gölgelik alanı sağlayan estetik tene
+                    çözümü.</p>
+                  <ul class="product-features">
+                    <li>Geniş gölgelik alanı</li>
+                    <li>Estetik görünüm</li>
+                    <li>Sağlam alüminyum konstrüksiyon</li>
+                    <li>Kolay açılır kapanır sistem</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mafsallı Tent -->
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/mafsallıtent5.jpg" alt="Mafsallı Tent" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🔩</div>
+                  <h3 class="product-title">Mafsallı Tente</h3>
+                  <p class="product-description">Mafsallı sistemi sayesinde farklı açılarda ayarlanabilen fonksiyonel
+                    tente.</p>
+                  <ul class="product-features">
+                    <li>Ayarlanabilir açı sistemi</li>
+                    <li>Rüzgara dayanıklı</li>
+                    <li>Paslanmaz mafsal sistemi</li>
+                    <li>Uzun ömürlü kullanım</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mimari Gölgelendirme Sistemleri -->
+          <div class="product-category animate-on-scroll" id="mimari-golgelendirme" data-category="mimari">
+            <div class="category-header">
+              <div class="category-badge">Mimari Gölgelendirme</div>
+              <h2 class="category-title">Mimari Gölgelendirme Sistemleri</h2>
+              <p class="category-description">Modern mimarilere uygun, estetik ve fonksiyonel gölgelendirme çözümleri
+              </p>
+            </div>
+            <div class="products-grid">
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/pergola3.jpg" alt="Mimari Pergola" />
+                  <div class="product-badge">Premium</div>
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🏛️</div>
+                  <h3 class="product-title">Mimari Pergola Sistemleri</h3>
+                  <p class="product-description">Modern bina ve yapılara entegre edilebilen, estetik ve fonksiyonel
+                    pergola sistemleri.</p>
+                  <ul class="product-features">
+                    <li>Mimari uyumluluk</li>
+                    <li>Yüksek dayanıklılık</li>
+                    <li>Otomatik açılır sistem</li>
+                    <li>Özel renk ve tasarım</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/mimari4.jpg" alt="Cephe Gölgelendirme" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🏢</div>
+                  <h3 class="product-title">Cephe Gölgelendirme Sistemleri</h3>
+                  <p class="product-description">Bina cephelerinde güneş kontrolü sağlayan, enerji verimliliğini artıran
+                    sistemler.</p>
+                  <ul class="product-features">
+                    <li>Enerji tasarrufu</li>
+                    <li>Güneş kontrolü</li>
+                    <li>Estetik görünüm</li>
+                    <li>Uzun ömürlü malzeme</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Çelik Yapı Çadırı -->
+          <div class="product-category animate-on-scroll" id="celik-konstruksiyon" data-category="celik">
+            <div class="category-header">
+              <div class="category-badge">Çelik Yapı Çadırları</div>
+              <h2 class="category-title">Dayanıklı Yapı Sistemleri</h2>
+              <p class="category-description">Güvenli, dayanıklı ve uzun ömürlü çelik yapı sistemleri</p>
+            </div>
+            <div class="products-grid">
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/kisbahcesi2.jpg" alt="Çelik Yapı Çadır" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🏗️</div>
+                  <h3 class="product-title">Etkinlik Çadırı</h3>
+                  <p class="product-description">Endüstriyel ve ticari yapılar için güvenli, dayanıklı çelik
+                    konstrüksiyon çözümleri.</p>
+                  <ul class="product-features">
+                    <li>Galvanizli çelik malzeme</li>
+                    <li>Deprem dayanımı</li>
+                    <li>Hızlı montaj imkanı</li>
+                    <li>Uzun ömür garantisi</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/afad2.jpg" alt="Afad Çadırı" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🏕️</div>
+                  <h3 class="product-title">Afad Çadırları</h3>
+                  <p class="product-description">Acil durum ve afet koşullarında kullanılmak üzere tasarlanmış dayanıklı
+                    çadırlar.</p>
+                  <ul class="product-features">
+                    <li>Hızlı kurulum</li>
+                    <li>Zorlu hava koşullarına dayanım</li>
+                    <li>Geniş kullanım alanı</li>
+                    <li>Yüksek koruma</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- İşletme Çadırı -->
+          <div class="product-category animate-on-scroll" id="isletme-cadiri" data-category="isletme">
+            <div class="category-header">
+              <div class="category-badge">İşletme Çadırları</div>
+              <h2 class="category-title">Ticari Çözümler</h2>
+              <p class="category-description">Restoran, cafe ve ticari alanlar için özel tasarım çadırlar</p>
+            </div>
+            <div class="products-grid">
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/ciftacilimtent1.jpg" alt="Restoran Çadırı" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🍽️</div>
+                  <h3 class="product-title">Restoran Çadırı</h3>
+                  <p class="product-description">Restoran ve cafe işletmeleri için geniş, konforlu ve estetik çadır
+                    sistemleri.</p>
+                  <ul class="product-features">
+                    <li>Geniş oturma kapasitesi</li>
+                    <li>Hava şartlarına tam dayanım</li>
+                    <li>Estetik ve modern görünüm</li>
+                    <li>Kolay temizlik ve bakım</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/ciftacilimtent2.jpg" alt="Cafe Çadırı" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">☕</div>
+                  <h3 class="product-title">Cafe Çadırı</h3>
+                  <p class="product-description">Cafe ve kahvehane işletmeleri için şık, fonksiyonel ve ekonomik çadır
+                    çözümleri.</p>
+                  <ul class="product-features">
+                    <li>Modern ve şık tasarım</li>
+                    <li>Çeşitli renk seçenekleri</li>
+                    <li>Kompakt ve fonksiyonel</li>
+                    <li>Hızlı kurulum sistemi</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tır-Kamyon Çadırı -->
+          <div class="product-category animate-on-scroll" id="tir-kamyon-cadiri" data-category="kamyon">
+            <div class="category-header">
+              <div class="category-badge">Araç Koruması</div>
+              <h2 class="category-title">Araç Koruma Sistemleri</h2>
+              <p class="category-description">Nakliye araçları için koruyucu ve dayanıklı çadır sistemleri</p>
+            </div>
+            <div class="products-grid">
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/tir1.jpg" alt="Tır Çadırı" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🚛</div>
+                  <h3 class="product-title">Tır Çadırı</h3>
+                  <p class="product-description">Büyük tonajlı tırlar için özel üretim, tam koruyucu çadır sistemleri.
+                  </p>
+                  <ul class="product-features">
+                    <li>Büyük boy araç kapasitesi</li>
+                    <li>Tam hava koşulu koruması</li>
+                    <li>Ekstra dayanıklı malzeme</li>
+                    <li>Özel ölçü üretim imkanı</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/kamyonet5.jpg" alt="Kamyon Çadırı" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🚚</div>
+                  <h3 class="product-title">Kamyon Çadırı</h3>
+                  <p class="product-description">Orta boy kamyonlar için pratik, ekonomik ve etkili çadır çözümleri.</p>
+                  <ul class="product-features">
+                    <li>Ekonomik çözüm</li>
+                    <li>Kolay kurulum sistemi</li>
+                    <li>Dayanıklı kumaş kalitesi</li>
+                    <li>Uygun fiyat garantisi</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/otoçadır4.jpg" alt="Tır Çadırı" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🚛</div>
+                  <h3 class="product-title">Sedan Araç Çadırı</h3>
+                  <p class="product-description">Sedan tipi araçlarınız için özel üretim, tam koruyucu çadır sistemleri.
+                  </p>
+                  <ul class="product-features">
+                    <li>Sedan boy araç kapasitesi</li>
+                    <li>Tam hava koşulu koruması</li>
+                    <li>Ekstra dayanıklı malzeme</li>
+                    <li>Özel ölçü üretim imkanı</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/otoçadır1.jpg" alt="Kamyon Çadırı" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🚚</div>
+                  <h3 class="product-title">SUV Araç Çadırı</h3>
+                  <p class="product-description">SUV tipi araçlarınız için pratik, tam koruyucu çadır sistemleri.</p>
+                  <ul class="product-features">
+                    <li>Ekonomik çözüm</li>
+                    <li>Kolay kurulum sistemi</li>
+                    <li>Dayanıklı kumaş kalitesi</li>
+                    <li>Uygun fiyat garantisi</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <!-- Şemsiyeler -->
+          <div class="product-category animate-on-scroll" id="semsiyeler" data-category="semsiye">
+            <div class="category-header">
+              <div class="category-badge">Şemsiyeler</div>
+              <h2 class="category-title">Şemsiye Sistemleri</h2>
+              <p class="category-description">Bahçe, plaj ve ticari kullanım için kaliteli şemsiye sistemleri</p>
+            </div>
+            <div class="products-grid">
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/yandangovde1.jpg" alt="Bahçe Şemsiyesi" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🌳</div>
+                  <h3 class="product-title">Bahçe Şemsiyeleri</h3>
+                  <p class="product-description">Bahçe ve teras alanları için estetik, fonksiyonel şemsiye sistemleri.
+                  </p>
+                  <ul class="product-features">
+                    <li>UV koruma özelliği</li>
+                    <li>Çeşitli renk seçenekleri</li>
+                    <li>360° dönebilir sistem</li>
+                    <li>Sağlam ve dayanıklı ayak</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/plaj1.jpg" alt="Plaj Şemsiyesi" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🏖️</div>
+                  <h3 class="product-title">Plaj Şemsiyeleri</h3>
+                  <p class="product-description">Plaj ve tatil mekanları için özel tasarım dayanıklı şemsiyeler.</p>
+                  <ul class="product-features">
+                    <li>Rüzgar dayanımı</li>
+                    <li>Su geçirmez kumaş</li>
+                    <li>Taşınabilir tasarım</li>
+                    <li>Güçlü UV filtre</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/teleskobiksems2.jpg" alt="Teleskopik Şemsiye" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">🔭</div>
+                  <h3 class="product-title">Teleskopik Şemsiyeler</h3>
+                  <p class="product-description">Ayarlanabilir yükseklik özelliği ile farklı ihtiyaçlara uygun şemsiye
+                    sistemleri.</p>
+                  <ul class="product-features">
+                    <li>Ayarlanabilir yükseklik</li>
+                    <li>Kullanım kolaylığı</li>
+                    <li>Sağlam mekanizma</li>
+                    <li>Dayanıklı malzeme</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card animate-on-scroll">
+                <div class="product-image">
+                  <img src="./img/yandangovde2.jpg" alt="Yandan Gövdeli Şemsiye" />
+                </div>
+                <div class="product-content">
+                  <div class="product-icon">⛱️</div>
+                  <h3 class="product-title">Yandan Gövdeli Şemsiyeler</h3>
+                  <p class="product-description">Yandan gövde tasarımı ile daha geniş alan kaplayan ve daha fonksiyonel
+                    şemsiyeler.</p>
+                  <ul class="product-features">
+                    <li>Geniş gölgelik alanı</li>
+                    <li>Yandan destek sistemi</li>
+                    <li>360° dönebilirlik</li>
+                    <li>Mekanik dayanıklılık</li>
+                  </ul>
+                  <div class="product-footer">
+                    <a href="iletisim.html" class="btn btn-primary">Fiyat Al</a>
+                    <a href="galeri.html" class="btn btn-outline">Galeri</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <div class="animate-on-scroll">
+        <h2>Size Özel Çözümler Üretiyoruz</h2>
+        <p>İhtiyacınıza özel ürün tasarımı ve üretimi için bizimle iletişime geçin. Ücretsiz keşif hizmetimizden
+          yararlanın.</p>
+        <div class="cta-buttons">
+          <a href="iletisim.html" class="btn btn-white">Ücretsiz Keşif Talep Et</a>
+          <a href="tel:03422380352" class="btn btn-secondary">0 342 238 03 52</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Yılmaz Çadır</h4>
+          <p>1991'den beri Gaziantep'te çadır ve tente sistemleri alanında güvenilir hizmet veren lider firma. Kalite,
+            güvenilirlik ve müşteri memnuniyeti odaklı çalışıyoruz.</p>
+          <p style="margin-top: 1.5rem;"><strong>Adres:</strong><br>Gaziantep Sanayi mahallesi 60111, Nolu Cd no: 3/A,
+            27110 <br> Şehitkamil / GAZİANTEP</p>
+        </div>
+        <div class="footer-section">
+          <h4>Hizmetlerimiz</h4>
+          <a href="#tent-sistemleri">Tente Sistemleri</a>
+          <a href="#mimari-golgelendirme">Mimari Gölgelendirme</a>
+          <a href="#celik-konstruksiyon">Çelik Konstrüksiyon</a>
+          <a href="#isletme-cadiri">İşletme Çadırı</a>
+          <a href="#tir-kamyon-cadiri">Tır-Kamyon Çadırı</a>
+          <a href="#semsiyeler">Şemsiye Sistemleri</a>
+          <a href="galeri.html">Özel Projeler</a>
+        </div>
+        <div class="footer-section">
+          <h4>Kurumsal</h4>
+          <a href="index.html">Anasayfa</a>
+          <a href="urunler.html">Ürünlerimiz</a>
+          <a href="galeri.html">Projelerimiz</a>
+          <a href="referanslar.html">Referanslarımız</a>
+          <a href="iletisim.html">İletişim</a>
+        </div>
+        <div class="footer-section">
+          <h4>İletişim</h4>
+          <p><strong>Telefon:</strong> 0 342 238 03 52</p>
+          <p><strong>GSM:</strong> 0 532 506 58 42</p>
+          <p><strong>GSM:</strong> 0 536 610 43 27</p>
+          <p><strong>Fax:</strong> 0 342 238 03 52</p>
+          <p style="margin-top: 1rem;"><strong>Çalışma Saatleri:</strong><br />Pazartesi - Cuma: 08:00 - 18:00
+            Cumartesi: 08:00 - 15:00</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Yılmaz Çadır. Tüm hakları saklıdır. | Since 1991</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      const spans = mobileMenuBtn.querySelectorAll('span');
+      if (mobileMenu.classList.contains('active')) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+      } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      }
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+        mobileMenu.classList.remove('active');
+        const spans = mobileMenuBtn.querySelectorAll('span');
+        spans.forEach(span => { span.style.transform = 'none'; span.style.opacity = '1'; });
+      }
+    });
+
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    });
+
+    // Product filtering (fixed: explicit button param)
+    function filterProducts(category, btn) {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const productCategories = document.querySelectorAll('.product-category');
+      filterBtns.forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      productCategories.forEach(cat => {
+        if (category === 'all' || cat.dataset.category === category) {
+          cat.style.display = 'block';
+          setTimeout(() => cat.classList.add('animate'), 100);
+        } else { cat.style.display = 'none'; }
+      });
+    }
+
+    // Sidebar navigation
+    const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+    const sections = document.querySelectorAll('.product-category');
+
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        sidebarLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        const targetId = link.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          const headerOffset = 150;
+          const elementPosition = targetSection.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Update active sidebar link on scroll
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 200) current = section.getAttribute('id');
+      });
+      sidebarLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+      });
+    });
+
+    // Intersection Observer for scroSll animations
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('animate'); });
+    }, observerOptions);
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+    // Product card stagger + hover icon micro-interaction
+    const productCards = document.querySelectorAll('.product-card');
+    productCards.forEach((card, index) => { card.style.animationDelay = `${index * 0.1}s`; });
+    productCards.forEach(card => {
+      card.addEventListener('mouseenter', () => { const icon = card.querySelector('.product-icon'); if (icon) icon.style.transform = 'rotate(5deg) scale(1.1)'; });
+      card.addEventListener('mouseleave', () => { const icon = card.querySelector('.product-icon'); if (icon) icon.style.transform = 'none'; });
+    });
+
+    // Soft page reveal
+    window.addEventListener('load', () => {
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.3s ease';
+      setTimeout(() => { document.body.style.opacity = '1'; }, 100);
+    });
+  </script>
+</body>
+
+</html>

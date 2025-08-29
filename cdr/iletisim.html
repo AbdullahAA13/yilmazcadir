@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim - Yılmaz Çadır</title>
+    <style>
+        :root {
+            --primary: #dc2626;
+            --primary-dark: #991b1b;
+            --primary-light: #fef2f2;
+            --secondary: #1e40af;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --text-muted: #9ca3af;
+            --bg: #ffffff;
+            --bg-alt: #f9fafb;
+            --border: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --radius: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 0 2rem;
+            }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .nav {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .nav {
+                display: flex;
+            }
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: var(--radius);
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .cta-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            margin-left: 1rem;
+        }
+
+        .cta-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .mobile-menu-btn {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        .mobile-menu-btn span {
+            width: 1.5rem;
+            height: 0.125rem;
+            background: var(--text);
+            transition: all 0.3s ease;
+            border-radius: 0.125rem;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            gap: 0.5rem;
+        }
+
+        .mobile-nav .nav-link {
+            padding: 0.75rem 1rem;
+        }
+
+        /* Page Header - Modified for Contact */
+        .page-header {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, var(--bg-alt) 0%, #f3f4f6 100%);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="0.5" fill="rgba(220,38,38,0.1)"/><circle cx="80" cy="20" r="0.5" fill="rgba(220,38,38,0.1)"/><circle cx="50" cy="50" r="0.5" fill="rgba(220,38,38,0.1)"/><circle cx="20" cy="80" r="0.5" fill="rgba(220,38,38,0.1)"/><circle cx="80" cy="80" r="0.5" fill="rgba(220,38,38,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary);
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-muted);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .page-title {
+                font-size: 3.5rem;
+            }
+        }
+
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 32rem;
+            margin: 0 auto;
+        }
+
+        /* Google Map */
+        .map-section {
+            padding: 5rem 0;
+        }
+
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+        }
+
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 0 0 5rem 0;
+            background: var(--bg);
+        }
+
+        .contact-grid {
+            display: grid;
+            gap: 2rem;
+            align-items: flex-start;
+            grid-template-columns: 1fr;
+        }
+
+        .contact-info-card {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .contact-info-card h3 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .contact-info-text strong {
+            display: block;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .contact-info-text a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .contact-info-text a:hover {
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: #111827;
+            color: white;
+            padding: 5rem 0 2.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 640px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .footer-section h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-section p {
+            color: #9ca3af;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #9ca3af;
+            text-decoration: none;
+            display: block;
+            padding: 0.25rem 0;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            text-align: center;
+            color: #9ca3af;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                  
+                        <img src="./img/logo.png" alt="Yılmaz Çadır Logo" style="width: 80px; height: 80px; border-radius: 8px;">
+                 
+                    <span>Yılmaz Çadır</span>
+                </a>
+
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">Anasayfa</a>
+                    <a href="urunler.html" class="nav-link">Ürünler</a>
+                    <a href="galeri.html" class="nav-link">Galeri</a>
+                    <a href="referanslar.html" class="nav-link">Referanslar</a>
+                     <a href="iletisim.html" class="nav-link active">İletişim</a>
+                    <a href="#" class="cta-btn">Hemen Ara</a>
+                </nav>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+
+            <div class="mobile-menu" id="mobileMenu">
+                <nav class="mobile-nav">
+                    <a href="index.html" class="nav-link">Anasayfa</a>
+                    <a href="urunler.html" class="nav-link">Ürünler</a>
+                    <a href="galeri.html" class="nav-link">Galeri</a>
+                    <a href="referanslar.html" class="nav-link">Referanslar</a>
+                    <a href="projeler.html" class="nav-link">Projeler</a>
+                    <a href="iletisim.html" class="nav-link active">İletişim</a>
+                    <a href="tel:03422380352" class="cta-btn">Hemen Ara</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="index.html">Anasayfa</a>
+                <span class="breadcrumb-separator">•</span>
+                <span>İletişim</span>
+            </nav>
+            <h1 class="page-title">Bizimle İletişime Geçin</h1>
+            <p class="page-subtitle">Sorularınız, talepleriniz veya projeleriniz için bize ulaşın. En kısa sürede geri dönüş yapacağız.</p>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="container">
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3182.8212600661627!2d37.44124897641406!3d37.08556375156082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1531e58cb72118a1%3A0xfa915c8ecd9fa8fc!2sY%C4%B1lmaz%20%C3%A7ad%C4%B1r%20ve%20tente%20Gaziantep!5e0!3m2!1str!2str!4v1756023853659!5m2!1str!2str" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <h3>İletişim Bilgileri</h3>
+                    <div class="contact-info-item">
+                        <span class="contact-info-icon"><i class="fas fa-map-marker-alt"></i></span>
+                        <div class="contact-info-text">
+                            <strong>Adres</strong>
+                            <a href="https://maps.google.com/maps?q=37.085909,37.443793" target="_blank" rel="noopener noreferrer">Gaziantep Sanayi mahallesi 60111, Nolu Cd no: 3/A, 27110 Şehitkamil/Gaziantep</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="contact-info-icon"><i class="fas fa-phone"></i></span>
+                        <div class="contact-info-text">
+                            <strong>Telefon</strong>
+                            <a href="tel:03422380352">0 342 238 03 52</a>
+ 
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="contact-info-icon"><i class="fas fa-mobile-alt"></i></span>
+                        <div class="contact-info-text">
+                            <strong>GSM</strong>
+                            <a href="tel:05325065842">0 532 506 58 42</a>
+                            <br>
+
+                  <a href="tel:03422380352">0 536 510 43 27</a>
+
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="contact-info-icon"><i class="fas fa-envelope"></i></span>
+                        <div class="contact-info-text">
+                            <strong>E-posta</strong>
+                            <a href="mailto:yilmazcadir27@gmail.com">yilmazcadir27@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="contact-info-icon"><i class="fas fa-clock"></i></span>
+                        <div class="contact-info-text">
+                            <strong>Çalışma Saatleri</strong>
+                            <span>Pazartesi - Cuma: 08:00 - 18:00 & Cumartesi: 08:00 - 15:00
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Yılmaz Çadır</h4>
+                    <p>1991'den beri Gaziantep'te çadır ve tent sistemleri alanında güvenilir hizmet veren lider firma. Kalite, güvenilirlik ve müşteri memnuniyeti odaklı çalışıyoruz.</p>
+                    <p style="margin-top: 1.5rem;"><strong>Adres:</strong><br>Gaziantep Sanayi mahallesi 60111, Nolu Cd no: 3/A, 27110 <br> Şehitkamil / GAZİANTEP</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Hizmetlerimiz</h4>
+                    <a href="urunler.html">Tente Sistemleri</a>
+                    <a href="urunler.html">Çelik Konstrüksiyon</a>
+                    <a href="urunler.html">İşletme Çadırı</a>
+                    <a href="urunler.html">Tır-Kamyon Çadırı</a>
+                    <a href="urunler.html">Şemsiye Sistemleri</a>
+                    <a href="galeri.html">Özel Projeler</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Kurumsal</h4>
+                    <a href="index.html">Anasayfa</a>
+                    <a href="urunler.html">Ürünlerimiz</a>
+                    <a href="galeri.html">Projelerimiz</a>
+                    <a href="referanslar.html">Referanslarımız</a>                    
+                    <a href="iletisim.html">İletişim</a>
+                </div>
+                <div class="footer-section">
+                    <h4>İletişim</h4>
+                    <p><strong>Telefon:</strong> 0 342 238 03 52</p>
+                    <p><strong>GSM:</strong> 0 532 506 58 42</p>
+                    <p><strong>GSM:</strong> 0 536 610 43 27</p>
+                    <p><strong>Fax:</strong> 0 342 238 03 52</p>
+                    <p style="margin-top: 1rem;"><strong>Çalışma Saatleri:</strong><br> Pazartesi - Cuma: 08:00 - 18:00
+                    Cumartesi: 08:00 - 15:00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Yılmaz Çadır. Tüm hakları saklıdır. | Since 1991</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            const spans = mobileMenuBtn.querySelectorAll('span');
+            if (mobileMenu.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                const spans = mobileMenuBtn.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+
+</html>

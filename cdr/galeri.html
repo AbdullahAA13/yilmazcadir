@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foto Galeri - Yılmaz Çadır</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #dc2626;
+            --primary-dark: #991b1b;
+            --primary-light: #fef2f2;
+            --secondary: #1e40af;
+            --secondary-dark: #1e40af;
+            --secondary-light: #eff6ff;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --text-muted: #9ca3af;
+            --bg: #ffffff;
+            --bg-alt: #f9fafb;
+            --border: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --radius: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            --transition-fast: all 0.15s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 0 2rem;
+            }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .nav {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .nav {
+                display: flex;
+            }
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: var(--radius);
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .cta-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            margin-left: 1rem;
+        }
+
+        .cta-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .mobile-menu-btn {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        .mobile-menu-btn span {
+            width: 1.5rem;
+            height: 0.125rem;
+            background: var(--text);
+            transition: all 0.3s ease;
+            border-radius: 0.125rem;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            gap: 0.5rem;
+        }
+
+        .mobile-nav .nav-link {
+            padding: 0.75rem 1rem;
+        }
+
+        /* Page specific styles */
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 2rem 2rem 1rem;
+            /* Adjust padding to clear fixed header */
+            font-size: 0.99rem;
+            color: var(--text-light);
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .breadcrumb a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary);
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-muted);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        @media (min-width: 640px) {
+            .page-title {
+                font-size: 3.5rem;
+            }
+        }
+
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 42rem;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .breadcrumb .separator {
+            margin: 0 0.5rem;
+            font-size: 1.25rem;
+            line-height: 0.5;
+            vertical-align: middle;
+            color: var(--text-light);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 4rem 0 3rem;
+            text-align: center;
+            background-color: var(--bg-alt);
+        }
+
+        @media (min-width: 1024px) {
+            .page-header {
+                padding: 6rem 0 4rem;
+            }
+        }
+
+        .page-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .page-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Filter */
+        .filter-section {
+            padding: 2rem 0 0;
+            background-color: var(--bg);
+            z-index: 40;
+        }
+
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            background-color: var(--bg);
+            color: var(--text-light);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: var(--primary);
+            color: var(--primary-dark);
+            background-color: var(--primary-light);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-btn.active {
+            font-weight: 600;
+        }
+
+        /* Gallery */
+        .gallery {
+            padding: 3rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transform: translateY(2rem);
+            opacity: 0;
+        }
+
+        .gallery-item.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-item img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            aspect-ratio: 16 / 9;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+            color: white;
+            padding: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .gallery-item:hover .overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-item .overlay-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .gallery-item .overlay-category {
+            font-size: 0.875rem;
+            color: #d1d5db;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease-in-out, visibility 0s linear 0s;
+        }
+
+        .lightbox-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .lightbox-image {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: 100%;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: white;
+            background: rgba(0, 0, 0, 0.3);
+            border: none;
+            border-radius: 50%;
+            width: 2.5rem;
+            height: 2.5rem;
+            font-size: 1.5rem;
+            line-height: 1;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity var(--transition-fast);
+        }
+
+        .lightbox-close:hover {
+            opacity: 1;
+        }
+
+        /* Footer */
+        .footer {
+            background: #111827;
+            color: white;
+            padding: 5rem 0 2.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 640px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .footer-section h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-section p {
+            color: #9ca3af;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #9ca3af;
+            text-decoration: none;
+            display: block;
+            padding: 0.25rem 0;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            text-align: center;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="./img/logo.png" alt="Yılmaz Çadır Logo"
+                        style="width: 80px; height: 80px; border-radius: 8px;">
+                    <span>Yılmaz Çadır</span>
+                </a>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">Anasayfa</a>
+                    <a href="urunler.html" class="nav-link">Ürünler</a>
+                    <a href="galeri.html" class="nav-link active">Galeri</a>
+                    <a href="referanslar.html" class="nav-link">Referanslar</a>
+                    <a href="iletisim.html" class="nav-link">İletişim</a>
+                    <a href="iletisim.html" class="cta-btn">Hemen Ara</a>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="mobile-menu" id="mobileMenu">
+                <nav class="mobile-nav">
+                    <a href="index.html" class="nav-link">Anasayfa</a>
+                    <a href="urunler.html" class="nav-link">Ürünler</a>
+                    <a href="galeri.html" class="nav-link active">Galeri</a>
+                    <a href="referanslar.html" class="nav-link">Referanslar</a>
+                    <a href="iletisim.html" class="nav-link">İletişim</a>
+                    <a href="tel:03422380352" class="cta-btn">Hemen Ara</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="index.html">Anasayfa</a>
+                <span class="breadcrumb-separator">•</span>
+                <span>Galeri</span>
+            </nav>
+            <h1 class="page-title">Göz Alıcı Projelerimiz</h1>
+            <p class="page-subtitle">Yılmaz Çadır'ın kalite ve estetiği buluşturan, tamamlanmış çeşitli projelerinden
+                örnekler. Her bir fotoğraf, uzmanlığımızın ve müşteri memnuniyetine verdiğimiz önemin bir yansımasıdır.
+            </p>
+        </div>
+    </section>
+
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-container animate-on-scroll">
+                <button class="filter-btn active" data-filter="all">Tümü</button>
+                <button class="filter-btn" data-filter="tent">Tent Sistemleri</button>
+                <button class="filter-btn" data-filter="celik">Çelik Yapı Çadırlar</button>
+                <button class="filter-btn" data-filter="endustriyel">Oto Koruma Çadırlar</button>
+                <button class="filter-btn" data-filter="ozel">Özel Projeler</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <div class="container gallery-grid" id="galleryGrid">
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/klasiktente1.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Modern Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/klasiktente2.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Modern Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/klasiktente3.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Modern Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/klasiktente4.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Modern Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/ciftacilimtent1.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Çift Açılımlı Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/ciftacilimtent2.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Çift Açılımlı Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/karpuztent3.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Karpuz Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/karpuztent4.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Karpuz Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/karpuztent5.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Karpuz Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/karpuztent6.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Karpuz Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/kastelli1.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Kastelli Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/kastelli2.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Kastelli Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/mafsallıtent3.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Mafsallı Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/mafsallıtent4.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">MafsallıTente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/mafsallıtent5.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Mafsallı Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/mafsallıtent6.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Mafsallı Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/pergola1.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Pergola Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/pergola2.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Pergola Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/pergola3.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Pergola Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/pergola4.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Pergola Tente Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/plaj1.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Plaj Şemsiye Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/plaj2.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Plaj Şemsiye Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/teleskobiksems1.jpg" Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Teleskopik Şemsiye Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/teleskobiksems2.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Teleskopik Şemsiye Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/teleskobiksems3.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Teleskopik Şemsiye Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/yandangovde1.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Yandan Gövdeli Şemsiye Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/yandangovde3.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Yandan Gövdeli Şemsiye Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="tent">
+                <img src="./img/yandangovde2.jpg" alt="Tent Sistemi 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Yandan Gövdeli Şemsiye Projesi</h3>
+                    <span class="overlay-category">Tent Sistemleri</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="celik">
+                <img src="./img/afad1.jpg" alt="Çelik Konstrüksiyon 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Afad Çadır Projesi</h3>
+                    <span class="overlay-category">Çelik Yapı Çadır</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="celik">
+                <img src="./img/afad2.jpg" alt="Çelik Konstrüksiyon 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Afad Çadır Projesi</h3>
+                    <span class="overlay-category">Çelik Yapı Çadır</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="celik">
+                <img src="./img/kisbahcesi2.jpg" alt="Çelik Konstrüksiyon 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Kış Bahçesi Projesi</h3>
+                    <span class="overlay-category">Çelik Yapı Çadır</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="celik">
+                <img src="./img/kisbahcesi4.jpg" alt="Çelik Konstrüksiyon 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Kış Bahçesi Projesi</h3>
+                    <span class="overlay-category">Çelik Yapı Çadır</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="endustriyel">
+                <img src="./img/tir1.jpg" alt="Endüstriyel Çadır 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Tır Çadır Projesi</h3>
+                    <span class="overlay-category">Araç Koruma Çadırı</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="endustriyel">
+                <img src="./img/tir2.jpg" alt="Endüstriyel Çadır 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Tır Çadır Projesi</h3>
+                    <span class="overlay-category">Araç Koruma Çadırı</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="endustriyel">
+                <img src="./img/tir3.jpg" alt="Endüstriyel Çadır 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Tır Çadır Projesi</h3>
+                    <span class="overlay-category">Araç Koruma Çadırı</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="endustriyel">
+                <img src="./img/tir4.jpg" alt="Endüstriyel Çadır 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Tır Çadır Projesi</h3>
+                    <span class="overlay-category">Araç Koruma Çadırı</span>
+                </div>
+            </div>
+
+            <div class="gallery-item animate-on-scroll" data-category="endustriyel">
+                <img src="./img/kamyonet2.jpg" alt="Endüstriyel Çadır 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Kamyonet Çadır Projesi</h3>
+                    <span class="overlay-category">Araç Koruma Çadırı</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="endustriyel">
+                <img src="./img/kamyonet3.jpg" alt="Endüstriyel Çadır 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Kamyonet Çadır Projesi</h3>
+                    <span class="overlay-category">Araç Koruma Çadırı</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="endustriyel">
+                <img src="./img/kamyonet4.jpg" alt="Endüstriyel Çadır 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Kamyonet Çadır Projesi</h3>
+                    <span class="overlay-category">Araç Koruma Çadırı</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="endustriyel">
+                <img src="./img/kamyonet5.jpg" alt="Endüstriyel Çadır 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Kamyonet Çadır Projesi</h3>
+                    <span class="overlay-category">Araç Koruma Çadırı</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="endustriyel">
+                <img src="./img/otoçadır1.jpg" alt="Özel Proje 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Oto Çadır Projesi</h3>
+                    <span class="overlay-category">Araç Koruma Çadırı</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="endustriyel">
+                <img src="./img/otoçadır2.jpg" alt="Özel Proje 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Oto Çadır Projesi</h3>
+                    <span class="overlay-category">Araç Koruma Çadırı</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="endustriyel">
+                <img src="./img/otoçadır3.jpg" alt="Özel Proje 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Oto Çadır Projesi</h3>
+                    <span class="overlay-category">Araç Koruma Çadırı</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="endustriyel">
+                <img src="./img/otoçadır4.jpg" alt="Özel Proje 1">
+                <div class="overlay">
+                    <h3 class="overlay-title">Oto Çadır Projesi</h3>
+                    <span class="overlay-category">Araç Koruma Çadırı</span>
+                </div>
+            </div>
+
+
+            <div class="gallery-item animate-on-scroll" data-category="ozel">
+                <img src="./img/mimari1.jpg" alt="Özel Proje 2">
+                <div class="overlay">
+                    <h3 class="overlay-title">Moden Mimari Gölgelendirme Projesi</h3>
+                    <span class="overlay-category">Özel Projeler</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="ozel">
+                <img src="./img/mimari2.jpg" alt="Özel Proje 2">
+                <div class="overlay">
+                    <h3 class="overlay-title">Moden Mimari Gölgelendirme Projesi</h3>
+                    <span class="overlay-category">Özel Projeler</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="ozel">
+                <img src="./img/mimari4.jpg" alt="Özel Proje 2">
+                <div class="overlay">
+                    <h3 class="overlay-title">Moden Mimari Gölgelendirme Projesi</h3>
+                    <span class="overlay-category">Özel Projeler</span>
+                </div>
+            </div>
+            <div class="gallery-item animate-on-scroll" data-category="ozel">
+                <img src="./img/mimari5.jpg" alt="Özel Proje 2">
+                <div class="overlay">
+                    <h3 class="overlay-title">Moden Mimari Gölgelendirme Projesi</h3>
+                    <span class="overlay-category">Özel Projeler</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" aria-label="Kapat">×</button>
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-image" id="lightboxImage">
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Yılmaz Çadır</h4>
+                    <p>1991'den beri Gaziantep'te çadır ve tent sistemleri alanında güvenilir hizmet veren lider firma.
+                        Kalite, güvenilirlik ve müşteri memnuniyeti odaklı çalışıyoruz.</p>
+                    <p style="margin-top: 1.5rem;"><strong>Adres:</strong><br>Gaziantep Sanayi mahallesi 60111, Nolu Cd
+                        no: 3/A, 27110 <br> Şehitkamil / GAZİANTEP</p>
+
+                </div>
+
+                <div class="footer-section">
+                    <h4>Hizmetlerimiz</h4>
+                    <a href="urunler.html">Tente Sistemleri</a>
+                    <a href="urunler.html">Çelik Konstrüksiyon</a>
+                    <a href="urunler.html">İşletme Çadırı</a>
+                    <a href="urunler.html">Tır-Kamyon Çadırı</a>
+                    <a href="urunler.html">Şemsiye Sistemleri</a>
+                    <a href="galeri.html">Özel Projeler</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Kurumsal</h4>
+                    <a href="index.html">Anasayfa</a>
+                    <a href="urunler.html">Ürünlerimiz</a>
+                    <a href="galeri.html">Projelerimiz</a>
+                    <a href="referanslar.html">Referanslarımız</a>
+                    <a href="iletisim.html">İletişim</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>İletişim</h4>
+                    <p><strong>Telefon:</strong> 0 342 238 03 52</p>
+                    <p><strong>GSM:</strong> 0 532 506 58 42</p>
+                    <p><strong>GSM:</strong> 0 536 610 43 27</p>
+                    <p><strong>Fax:</strong> 0 342 238 03 52</p>
+                    <p style="margin-top: 1rem;"><strong>Çalışma Saatleri:</strong><br>
+                        Pazartesi - Cuma: 08:00 - 18:00
+                        Cumartesi: 08:00 - 15:00</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Yılmaz Çadır. Tüm hakları saklıdır. | Since 1991</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality (copied from index.html)
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+
+            const spans = mobileMenuBtn.querySelectorAll('span');
+            if (mobileMenu.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                const spans = mobileMenuBtn.querySelectorAll('span');
+                spans.forEach(span => {
+                    span.style.transform = 'none';
+                    span.style.opacity = '1';
+                });
+            }
+        });
+
+        // Header scroll effect (copied from index.html)
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // --- Gallery-specific JavaScript ---
+
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to the clicked button
+                this.classList.add('active');
+
+                const filterValue = this.getAttribute('data-filter');
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function () {
+                const imageUrl = this.querySelector('img').src;
+                lightboxImage.src = imageUrl;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Disable scrolling
+            });
+        });
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = ''; // Re-enable scrolling
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = ''; // Re-enable scrolling
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = ''; // Re-enable scrolling
+            }
+        });
+
+        // Intersection Observer for scroll animations (copied from index.html)
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>

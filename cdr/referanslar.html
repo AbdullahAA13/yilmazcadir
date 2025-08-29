@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referanslar - Yılmaz Çadır</title>
+    <style>
+        :root {
+            --primary: #dc2626;
+            --primary-dark: #991b1b;
+            --primary-light: #fef2f2;
+            --secondary: #1e40af;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --text-muted: #9ca3af;
+            --bg: #ffffff;
+            --bg-alt: #f9fafb;
+            --border: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --radius: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .container { padding: 0 1.5rem; }
+        }
+
+        @media (min-width: 1024px) {
+            .container { padding: 0 2rem; }
+        }
+
+        /* Header - Same as other pages */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .nav {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .nav { display: flex; }
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: var(--radius);
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .cta-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            margin-left: 1rem;
+        }
+
+        .cta-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .mobile-menu-btn {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .mobile-menu-btn { display: none; }
+        }
+
+        .mobile-menu-btn span {
+            width: 1.5rem;
+            height: 0.125rem;
+            background: var(--text);
+            transition: all 0.3s ease;
+            border-radius: 0.125rem;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            gap: 0.5rem;
+        }
+
+        .mobile-nav .nav-link {
+            padding: 0.75rem 1rem;
+        }
+
+        /* Page Header with Tent Animation */
+        .page-header {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, var(--bg-alt) 0%, #f3f4f6 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="0.5" fill="rgba(220,38,38,0.1)"/><circle cx="80" cy="20" r="0.5" fill="rgba(220,38,38,0.1)"/><circle cx="50" cy="50" r="0.5" fill="rgba(220,38,38,0.1)"/><circle cx="20" cy="80" r="0.5" fill="rgba(220,38,38,0.1)"/><circle cx="80" cy="80" r="0.5" fill="rgba(220,38,38,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content-wrapper {
+            display: grid;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (min-width: 1024px) {
+            .header-content-wrapper {
+                grid-template-columns: 1fr 1fr;
+                gap: 5rem;
+            }
+        }
+
+        .header-text {
+            text-align: center;
+        }
+
+        @media (min-width: 1024px) {
+            .header-text { text-align: left; }
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .breadcrumb { justify-content: flex-start; }
+        }
+
+        .breadcrumb a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary);
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-muted);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .page-title { font-size: 3.5rem; }
+        }
+
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 32rem;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 1024px) {
+            .page-subtitle { margin: 0; }
+        }
+
+        /* Animated Tent Illustration */
+        .tent-animation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .tent-svg {
+            width: 300px;
+            height: 200px;
+            max-width: 100%;
+        }
+
+        @media (min-width: 640px) {
+            .tent-svg {
+                width: 400px;
+                height: 250px;
+            }
+        }
+
+        .tent-path {
+            fill: var(--primary);
+            opacity: 0;
+            animation: tentAppear 2s ease-out forwards;
+        }
+
+        .tent-path:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .tent-path:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        .flag {
+            fill: #fbbf24;
+            animation: flagWave 3s ease-in-out infinite;
+            transform-origin: 20% 20%;
+        }
+
+        @keyframes tentAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes flagWave {
+            0%, 100% {
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(5deg) scale(1.05);
+            }
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 5rem 0;
+            background: var(--primary);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon points="0,1000 1000,0 1000,1000" fill="rgba(255,255,255,0.05)"/></svg>');
+        }
+
+        .stats-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .stats-grid {
+            display: grid;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        @media (min-width: 640px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 1024px) {
+            .stats-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        .stat-item {
+            padding: 2rem 1rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .stat-number { font-size: 3.5rem; }
+        }
+
+        .stat-label {
+            font-weight: 600;
+            font-size: 1.125rem;
+            opacity: 0.9;
+        }
+
+        /* References Section */
+        .references {
+            padding: 7.5rem 0;
+            background: var(--bg);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        @media (min-width: 640px) {
+            .section-title { font-size: 3rem; }
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+
+        /* Reference Categories */
+        .reference-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 9999px;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .tab-btn:hover,
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Reference Grid */
+        .reference-grid {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        @media (min-width: 640px) {
+            .reference-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 768px) {
+            .reference-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (min-width: 1024px) {
+            .reference-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        .reference-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reference-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), #fbbf24);
+            transition: left 0.5s ease;
+        }
+
+        .reference-card:hover::before {
+            left: 0;
+        }
+
+        .reference-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary);
+        }
+
+        .reference-icon {
+            width: 4rem;
+            height: 4rem;
+            background: linear-gradient(135deg, var(--primary-light), var(--bg-alt));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin: 0 auto 1.5rem;
+            border: 2px solid var(--border);
+        }
+
+        .reference-name {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .reference-sector {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .reference-projects {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: var(--bg-alt);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
+            display: inline-block;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 7.5rem 0;
+            background: var(--bg-alt);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 1024px) {
+            .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .testimonial-card {
+            background: var(--bg);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -0.5rem;
+            left: 1.5rem;
+            font-size: 4rem;
+            color: var(--primary);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            margin-top: 1.5rem;
+            font-style: italic;
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 3rem;
+            height: 3rem;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info p {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 7.5rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon points="0,1000 1000,0 1000,1000" fill="rgba(255,255,255,0.05)"/></svg>');
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .cta h2 {
+            font-size: 2.25rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .cta h2 { font-size: 3rem; }
+        }
+
+        .cta p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-white:hover {
+            background: var(--bg-alt);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Footer - Same as other pages */
+        .footer {
+            background: #111827;
+            color: white;
+            padding: 5rem 0 2.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 640px) {
+            .footer-content { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-content { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        .footer-section h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-section p {
+            color: #9ca3af;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #9ca3af;
+            text-decoration: none;
+            display: block;
+            padding: 0.25rem 0;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        /* Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(2rem);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .animate-on-scroll {
+                opacity: 1;
+                transform: none;
+            }
+            
+            .tent-path,
+            .flag {
+                animation: none;
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                        <img src="./img/logo.png" alt="Yılmaz Çadır Logo" style="width: 80px; height: 80px; border-radius: 8px;">
+                    <span>Yılmaz Çadır</span>
+                </a>
+
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">Anasayfa</a>
+                    <a href="urunler.html" class="nav-link">Ürünler</a>
+                    <a href="galeri.html" class="nav-link">Galeri</a>
+                    <a href="referanslar.html" class="nav-link active">Referanslar</a>                  
+                    <a href="iletisim.html" class="nav-link">İletişim</a>
+                    <a href="iletisim.html" class="cta-btn">Hemen Ara</a>
+                </nav>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+
+            <div class="mobile-menu" id="mobileMenu">
+                <nav class="mobile-nav">
+                    <a href="index.html" class="nav-link">Anasayfa</a>
+                    <a href="urunler.html" class="nav-link">Ürünler</a>
+                    <a href="galeri.html" class="nav-link">Galeri</a>
+                    <a href="referanslar.html" class="nav-link active">Referanslar</a>                    
+                    <a href="iletisim.html" class="nav-link">İletişim</a>
+                    <a href="tel:03422380352" class="cta-btn">Hemen Ara</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="header-content-wrapper">
+                <div class="header-text">
+                    <nav class="breadcrumb">
+                        <a href="index.html">Anasayfa</a>
+                        <span class="breadcrumb-separator">•</span>
+                        <span>Referanslar</span>
+                    </nav>
+                    <h1 class="page-title">Referanslarımız</h1>
+                    <p class="page-subtitle">30+ yıllık tecrübemizle çalıştığımız değerli müşterilerimiz ve başarılı projelerimiz</p>
+                </div>
+
+                <div class="tent-animation">
+                    <svg class="tent-svg" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Tent Body -->
+                        <path class="tent-path" d="M50 200 L200 50 L350 200 Z" fill="#dc2626"/>
+                        <!-- Tent Side -->
+                        <path class="tent-path" d="M200 50 L350 200 L320 200 L200 80 Z" fill="#991b1b"/>
+                        <!-- Tent Entrance -->
+                        <path class="tent-path" d="M150 200 L200 120 L250 200 Z" fill="#7f1d1d"/>
+                        <!-- Flag -->
+                        <path class="flag" d="M200 50 L210 40 L230 45 L210 50 Z" fill="#fbbf24"/>
+                        <!-- Flag Pole -->
+                        <line x1="200" y1="50" x2="200" y2="40" stroke="#4b5563" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-content">
+                <div class="stats-grid">
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-target="100">0</span>
+                        <div class="stat-label">Kurumsal Müşteri</div>
+                    </div>
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-target="500">0</span>
+                        <div class="stat-label">Tamamlanan Proje</div>
+                    </div>
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-target="30">0</span>
+                        <div class="stat-label">Yıllık Tecrübe</div>
+                    </div>
+                    <div class="stat-item animate-on-scroll">
+                        <span class="stat-number" data-target="98">0</span>
+                        <div class="stat-label">Memnuniyet Oranı</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- References Section -->
+    <section class="references">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-badge">Referanslarımız</div>
+                <h2 class="section-title">Değerli Müşterilerimiz</h2>
+                <p class="section-subtitle">Güvenlerini bizden esirgemeyen ve projelerinde tercih eden değerli müşterilerimiz</p>
+            </div>
+
+            <!-- Reference Categories -->
+            <div class="reference-tabs">
+                <button class="tab-btn active" onclick="showReferences('all')">Tüm Referanslar</button>
+                <button class="tab-btn" onclick="showReferences('nakliyat')">Nakliyat</button>
+                <button class="tab-btn" onclick="showReferences('sanayi')">Sanayi</button>
+                <button class="tab-btn" onclick="showReferences('belediye')">Belediye</button>
+                <button class="tab-btn" onclick="showReferences('ozel')">Özel Sektör</button>
+            </div>
+
+            <!-- References Grid -->
+            <div class="reference-grid" id="referenceGrid">
+                <!-- Nakliyat Sektörü -->
+                <div class="reference-card animate-on-scroll" data-category="nakliyat">
+                    <div class="reference-icon">🚚</div>
+                    <h3 class="reference-name">ÖZGÜR SÖNMEZ NAKLİYAT</h3>
+                    <p class="reference-sector">Nakliyat Sektörü</p>
+                    <span class="reference-projects">5+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="sanayi">
+                    <div class="reference-icon">🏭</div>
+                    <h3 class="reference-name">SANKO HOLDİNG</h3>
+                    <p class="reference-sector">Sanayi ve Üretim</p>
+                    <span class="reference-projects">10+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="belediye">
+                    <div class="reference-icon">🏛️</div>
+                    <h3 class="reference-name">GAZİANTEP BELEDİYESİ</h3>
+                    <p class="reference-sector">Kamu Kuruluşu</p>
+                    <span class="reference-projects">15+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="sanayi">
+                    <div class="reference-icon">🏢</div>
+                    <h3 class="reference-name">NAKSAN HOLDİNG</h3>
+                    <p class="reference-sector">Sanayi ve Üretim</p>
+                    <span class="reference-projects">8+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="sanayi">
+                    <div class="reference-icon">🔧</div>
+                    <h3 class="reference-name">DBA ENDÜSTRİ</h3>
+                    <p class="reference-sector">Endüstriyel Üretim</p>
+                    <span class="reference-projects">6+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="nakliyat">
+                    <div class="reference-icon">🚛</div>
+                    <h3 class="reference-name">SİİRT BATMAN NAKLİYAT</h3>
+                    <p class="reference-sector">Nakliyat Sektörü</p>
+                    <span class="reference-projects">4+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="sanayi">
+                    <div class="reference-icon">🧵</div>
+                    <h3 class="reference-name">SELÇUK İPLİK</h3>
+                    <p class="reference-sector">Tekstil Sanayi</p>
+                    <span class="reference-projects">7+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="ozel">
+                    <div class="reference-icon">📦</div>
+                    <h3 class="reference-name">SURAT KARGO</h3>
+                    <p class="reference-sector">Lojistik Hizmetleri</p>
+                    <span class="reference-projects">3+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="sanayi">
+                    <div class="reference-icon">🏗️</div>
+                    <h3 class="reference-name">KAR PEN YAPI</h3>
+                    <p class="reference-sector">İnşaat Sektörü</p>
+                    <span class="reference-projects">9+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="sanayi">
+                    <div class="reference-icon">🧪</div>
+                    <h3 class="reference-name">VETROTECH</h3>
+                    <p class="reference-sector">Teknoloji</p>
+                    <span class="reference-projects">5+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="sanayi">
+                    <div class="reference-icon">🏭</div>
+                    <h3 class="reference-name">BAYTEKS TEKSTİL</h3>
+                    <p class="reference-sector">Tekstil Sanayi</p>
+                    <span class="reference-projects">12+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="ozel">
+                    <div class="reference-icon">🎨</div>
+                    <h3 class="reference-name">7AS REKLAM</h3>
+                    <p class="reference-sector">Reklam Ajansı</p>
+                    <span class="reference-projects">6+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="nakliyat">
+                    <div class="reference-icon">🚚</div>
+                    <h3 class="reference-name">ŞAHİNGAN NAKLİYAT</h3>
+                    <p class="reference-sector">Nakliyat Sektörü</p>
+                    <span class="reference-projects">4+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="nakliyat">
+                    <div class="reference-icon">📦</div>
+                    <h3 class="reference-name">GNA KARGO</h3>
+                    <p class="reference-sector">Kargo Hizmetleri</p>
+                    <span class="reference-projects">3+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="nakliyat">
+                    <div class="reference-icon">🚛</div>
+                    <h3 class="reference-name">KAZANCIOĞLU NAKLİYAT</h3>
+                    <p class="reference-sector">Nakliyat Sektörü</p>
+                    <span class="reference-projects">7+ Proje Tamamlandı</span>
+                </div>
+
+                <div class="reference-card animate-on-scroll" data-category="sanayi">
+                    <div class="reference-icon">🏢</div>
+                    <h3 class="reference-name">GÜLSAN HOLDİNG</h3>
+                    <p class="reference-sector">Holding Şirket</p>
+                    <span class="reference-projects">15+ Proje Tamamlandı</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-badge">Müşteri Görüşleri</div>
+                <h2 class="section-title">Ne Düşünüyorlar</h2>
+                <p class="section-subtitle">Değerli müşterilerimizin bizimle ilgili görüş ve deneyimleri</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-content">
+                        Yılmaz Çadır ile 10 yılı aşkın süredir çalışıyoruz. Kaliteli işçilik, zamanında teslimat ve güvenilir hizmet anlayışları sayesinde tüm projelerimizde tercih ettiğimiz firma.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M.K</div>
+                        <div class="author-info">
+                            <h4>Mehmet KAYA</h4>
+                            <p>Sanko Holding - Proje Müdürü</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-content">
+                        Restoran işletmemiz için yaptırdığımız çadır sistemi hem estetik hem de fonksiyonel oldu. Müşterilerimizden çok olumlu geri dönüşler alıyoruz.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A.Y</div>
+                        <div class="author-info">
+                            <h4>Ahmet YILMAZ</h4>
+                            <p>Çağdaş Restaurant - İşletme Sahibi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-content">
+                        Nakliyat filosumuz için yaptırdığımız tır çadırları sayesinde araçlarımızı hava şartlarından koruyoruz. Çok memnunuz.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">Ö.S</div>
+                        <div class="author-info">
+                            <h4>Özgür SÖNMEZ</h4>
+                            <p>Özgür Sönmez Nakliyat - Genel Müdür</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-content">
+                        Belediye projelerimizde Yılmaz Çadır'ın çelik konstrüksiyon işlerindeki başarısı takdire şayan. Kaliteli malzeme ve işçilik garantisi veriyorlar.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">F.T</div>
+                        <div class="author-info">
+                            <h4>Fatih TÜRK</h4>
+                            <p>Gaziantep Belediyesi - İmar Müdürü</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-content">
+                        Fabrikamızın pergola sistemleri için Yılmaz Çadır ile çalıştık. Projenin her aşamasında profesyonel yaklaşım sergilediler.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">S.D</div>
+                        <div class="author-info">
+                            <h4>Selim DEMİR</h4>
+                            <p>Bayteks Tekstil - Teknik Müdür</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-content">
+                        Otomatik pergola sistemimiz tam bir yıl oldu, hiçbir sorun yaşamadık. Servis hizmetleri de çok hızlı ve etkili.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">E.K</div>
+                        <div class="author-info">
+                            <h4>Emre KORKMAZ</h4>
+                            <p>Villa Sahibi - Özel Müşteri</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content animate-on-scroll">
+                <h2>Siz de Referanslarımıza Katılın</h2>
+                <p>Kaliteli hizmet anlayışımızla sizin de projenizin parçası olmaktan gurur duyarız. Ücretsiz keşif hizmetimizden yararlanın.</p>
+                <div class="cta-buttons">
+                    <a href="iletisim.html" class="btn btn-white">Ücretsiz Keşif Talep Et</a>
+                    <a href="galeri.html" class="btn btn-secondary">Projelerimizi İnceleyin</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Yılmaz Çadır</h4>
+                    <p>1991'den beri Gaziantep'te çadır ve tent sistemleri alanında güvenilir hizmet veren lider firma. Kalite, güvenilirlik ve müşteri memnuniyeti odaklı çalışıyoruz.</p>
+                                      <p style="margin-top: 1.5rem;"><strong>Adres:</strong><br>Gaziantep Sanayi mahallesi 60111, Nolu Cd no: 3/A, 27110 <br> Şehitkamil / GAZİANTEP</p>
+
+                </div>
+
+                <div class="footer-section">
+                    <h4>Hizmetlerimiz</h4>
+                    <a href="urunler.html">Tente Sistemleri</a>
+                    <a href="urunler.html">Çelik Konstrüksiyon</a>
+                    <a href="urunler.html">İşletme Çadırı</a>
+                    <a href="urunler.html">Tır-Kamyon Çadırı</a>
+                    <a href="urunler.html">Şemsiye Sistemleri</a>
+                    <a href="galeri.html">Özel Projeler</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Kurumsal</h4>
+                    <a href="index.html">Anasayfa</a>
+                    <a href="urunler.html">Ürünlerimiz</a>
+                    <a href="galeri.html">Projelerimiz</a>
+                    <a href="referanslar.html">Referanslarımız</a>                    
+                    <a href="iletisim.html">İletişim</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>İletişim</h4>
+                    <p><strong>Telefon:</strong> 0 342 238 03 52</p>
+                    <p><strong>GSM:</strong> 0 532 506 58 42</p>
+                    <p><strong>GSM:</strong> 0 536 610 43 27</p>
+                    <p><strong>Fax:</strong> 0 342 238 03 52</p>
+                    <p style="margin-top: 1rem;"><strong>Çalışma Saatleri:</strong><br>
+                    Pazartesi - Cuma: 08:00 - 18:00
+                    Cumartesi: 08:00 - 15:00</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Yılmaz Çadır. Tüm hakları saklıdır. | Since 1991</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            
+            const spans = mobileMenuBtn.querySelectorAll('span');
+            if (mobileMenu.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                const spans = mobileMenuBtn.querySelectorAll('span');
+                spans.forEach(span => {
+                    span.style.transform = 'none';
+                    span.style.opacity = '1';
+                });
+            }
+        });
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reference filtering
+        function showReferences(category) {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const referenceCards = document.querySelectorAll('.reference-card');
+
+            // Update active tab
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Show/hide reference cards
+            referenceCards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    setTimeout(() => card.classList.add('animate'), 100);
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Animated counters
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target + (target === 98 ? '%' : '+');
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    
+                    // Trigger counter animation for stats section
+                    if (entry.target.classList.contains('stat-item') && !entry.target.classList.contains('counted')) {
+                        entry.target.classList.add('counted');
+                        setTimeout(animateCounters, 200);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Reference card stagger animation
+        const referenceCards = document.querySelectorAll('.reference-card');
+        referenceCards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Enhanced card interactions
+        referenceCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const icon = card.querySelector('.reference-icon');
+                if (icon) {
+                    icon.style.transform = 'rotate(10deg) scale(1.1)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const icon = card.querySelector('.reference-icon');
+                if (icon) {
+                    icon.style.transform = 'none';
+                }
+            });
+        });
+
+        // Loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.3s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
